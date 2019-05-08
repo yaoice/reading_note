@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protobuf;
+
+// message关键字定义一个叫String的类型
+message String {
+    string value = 1;
+}
+
+// 定义rpc方法
+service HelloService {
+    rpc Hello (String) returns (String);
+}
