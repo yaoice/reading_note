@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protobuf;
+
+message String {
+    string value = 1;
+}
+
+service HelloService {
+    rpc Hello (String) returns (String);
+    // 关键字stream启用流特性, 添加一个双向流的方法
+    rpc Channel (stream String) returns (stream String);
+}
