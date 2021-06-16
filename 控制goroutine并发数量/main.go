@@ -32,6 +32,7 @@ func ParallelizeUntil(ctx context.Context, workers, pieces int, doWorkPiece DoWo
 	for i := 0; i < pieces; i++ {
 		toProcess <- i
 	}
+    //不影响channel的读
 	close(toProcess)
 
 	if pieces < workers {
@@ -44,6 +45,7 @@ func ParallelizeUntil(ctx context.Context, workers, pieces int, doWorkPiece DoWo
 		go func() {
 			defer utilruntime.HandleCrash()
 			defer wg.Done()
+            //多个workers并发从toProcess中读
 			for piece := range toProcess {
 				select {
 				case <-stop:
